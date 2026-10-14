@@ -1,0 +1,11 @@
+---
+title: "Title of the abstract"
+authors: ["First Author", "Second Author"]
+supervisor: "Supervisor Name"          # optional
+session: "Session name"                # optional – groups abstracts + adds a filter
+keywords: ["keyword one", "keyword two"]  # optional
+pdf: "/pdfs/my-abstract.pdf"           # optional – put the file in public/pdfs/
+order: 10                              # optional – lower numbers come first
+---
+
+Abstract text in Markdown. Leave a blank line between paragraphs.
