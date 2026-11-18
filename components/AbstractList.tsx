@@ -53,18 +53,21 @@ export default function AbstractList({ abstracts }: { abstracts: Abstract[] }) {
     : [{ s: undefined, items: hits }];
 
   return (
-    <>
-      <div className="controls">
-        <div className="wrap">
-          <input
-            className="search"
-            type="search"
-            placeholder="Search titles, authors, keywords, abstract text…"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            autoComplete="off"
-          />
-          {sessions.length > 1 && (
+    <div className="wrap layout">
+      <aside className="panel">
+        <label className="panel-label" htmlFor="search">Search</label>
+        <input
+          id="search"
+          className="search"
+          type="search"
+          placeholder="Title, author, keyword…"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          autoComplete="off"
+        />
+        {sessions.length > 1 && (
+          <>
+            <div className="panel-label">Sessions</div>
             <div className="chips">
               {[null, ...sessions].map((s) => (
                 <button
@@ -77,22 +80,24 @@ export default function AbstractList({ abstracts }: { abstracts: Abstract[] }) {
                 </button>
               ))}
             </div>
-          )}
-          <div className="count">
-            {hits.length} of {abstracts.length} abstract{abstracts.length === 1 ? "" : "s"}
-          </div>
+          </>
+        )}
+        <div className="count">
+          {hits.length === abstracts.length
+            ? `${abstracts.length} abstracts`
+            : `${hits.length} of ${abstracts.length} abstracts`}
         </div>
-      </div>
+      </aside>
 
-      <main className="wrap list">
+      <main className="list">
         {hits.length === 0 && <div className="empty">No abstracts match “{q}”.</div>}
         {groups.map(({ s, items }) =>
           items.length ? (
             <section key={s ?? "_"}>
-              {grouped && <h3 className="session-title">{s ?? "Other"}</h3>}
+              {grouped && <h2 className="session-title">{s ?? "Other"}</h2>}
               {items.map((a) => (
                 <Link key={a.id} href={`/abstracts/${a.id}/`} className="card">
-                  <h2><Highlight text={a.title} q={q} /></h2>
+                  <h3><Highlight text={a.title} q={q} /></h3>
                   <div className="authors"><Highlight text={a.authors.join(", ")} q={q} /></div>
                   <p className="snippet"><Highlight text={snippet(a.text, q)} q={q} /></p>
                   {a.keywords.length > 0 && (
@@ -108,6 +113,6 @@ export default function AbstractList({ abstracts }: { abstracts: Abstract[] }) {
           ) : null
         )}
       </main>
-    </>
+    </div>
   );
 }

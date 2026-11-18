@@ -1,0 +1,15 @@
+{
+  "sheet": "Form responses",
+  "wordLimit": 350,
+  "columns": {
+    "timestamp": "Timestamp",
+    "authors": "Name(s)",
+    "title": "Title",
+    "supervisor": "Supervisor/External collaboration Partner",
+    "keywords": "Keywords",
+    "abstract": "Full-text abstract (max: 350 words)",
+    "status": "Status"
+  },
+  "skipStatuses": ["rejected", "skip", "test"],
+  "skipTitles": ["Bum"]
+}

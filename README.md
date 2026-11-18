@@ -12,7 +12,22 @@ npm install      # first time only
 npm run dev      # → http://localhost:3000, reloads on every save
 ```
 
-## Add or edit an abstract
+## Import abstracts from the submission form (recommended)
+Export the form responses to Excel, then run:
+
+```bash
+npm run import -- path/to/Abstract_responses.xlsx
+```
+
+This creates one Markdown file per submission in `content/abstracts/` and prints anything you should check.
+- **Cleans up pasted text:** it joins PDF-style hard line breaks and hyphen-split words, keeps paragraph breaks, splits keywords on `,` `·` `;` `\and`, and converts `\textit{}` to italics.
+- **Merges duplicates:** submissions with the same title become one abstract, crediting all authors and keeping the newest text.
+- **Skips test rows:** it skips rows whose `Status` is "Rejected"/"Skip"/"Test", and titles listed in `skipTitles`.
+- **Is safe to re-run:** it replaces the files it created before (marked `source: form`), but keeps any `session`, `order` or `pdf` you've added to them by hand, as long as the title is unchanged.
+
+Column names, the word limit and the skip list are in `scripts/import-config.json`.
+
+## Add or edit an abstract by hand
 Each abstract is one Markdown file in `content/abstracts/`. The file name becomes the URL
 (`content/abstracts/thermal-sar.md` → `/abstracts/thermal-sar/`), so use lowercase-with-dashes.
 
@@ -32,7 +47,6 @@ order: 10                                # optional: lower comes first
 Abstract text in Markdown. Blank line between paragraphs.
 ```
 
-Delete the three `example-*.md` files before the conference.
 Conference name, date and venue are in `content/conference.json`.
 
 ## Publish on GitHub Pages

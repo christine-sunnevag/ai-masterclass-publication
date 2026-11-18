@@ -4,3 +4,8 @@ out/
 next-env.d.ts
 *.tsbuildinfo
 .DS_Store
+
+# Form exports contain submitters' email addresses: never commit them
+*.xlsx
+*.xls
+*.csv
